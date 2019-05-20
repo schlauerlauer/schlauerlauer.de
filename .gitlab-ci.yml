@@ -19,15 +19,13 @@ update-website:
     - mkdir -p ~/.ssh
     - ssh-keyscan gitlab.com >> gitlab-known-hosts
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
-    - 'git config --global user.email "cicd@schlauerlauer.de"'
-    - 'git config --global user.name "schlauerbot"'
+    - 'git config --global user.email "$GIT_EMAIL"'
+    - 'git config --global user.name "$GIT_USER"'
     - rm -rf public
     - mkdir hugo && cd hugo
-    - wget -O  hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz
+    - wget -O  hugo.tar.gz $HUGO_LINK
     - tar -xzf hugo.tar.gz
-    - ls -la
-    - chmod +x hugo
-    - mv hugo /usr/bin && cd ..
+    - mv hugo /bin && cd ..
     - rm -rf hugo
   script:
     - hugo
@@ -37,5 +35,5 @@ update-website:
     - rm -rf public
     - mv ../public .
     - git add -A
-    - git commit -m "schlauerbot $(date +%d.%m.%y)"
+    - git commit -m "$GIT_USER $(date +%d.%m.%y)"
     - git push
