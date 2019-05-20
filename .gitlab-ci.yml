@@ -7,7 +7,7 @@ update-website:
     - master
   allow_failure: false
   image: "alpine:3.9.3"
-  before_script:
+  script:
   # $GIT_SSH_PRIV_KEY: base64 encoded one-liner
     - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git)'
     - eval $(ssh-agent -s)
@@ -25,11 +25,9 @@ update-website:
     - mkdir hugo && cd hugo
     - wget -O  hugo.tar.gz $HUGO_LINK
     - tar -xzf hugo.tar.gz
-    #- mv hugo /bin
-    #- rm -rf hugo
-    - cd ..
-  script:
-    - ./hugo/hugo
+    - mv hugo /bin
+    - rm -rf hugo
+    - hugo
     - mv public ../
     - git remote set-url origin git@gitlab.com:schlauerlauer/website.git
     - git checkout public
