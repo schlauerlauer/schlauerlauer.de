@@ -19,13 +19,13 @@ update-website:
     - mkdir -p ~/.ssh
     - ssh-keyscan gitlab.com >> gitlab-known-hosts
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
-    - 'git config --global user.email "cicd@maxkolbe.de"'
-    - 'git config --global user.name "RoboScout"'
-    #- git submodule update --recursive --remote # TODO Remove me
+    - 'git config --global user.email "cicd@schlauerlauer.de"'
+    - 'git config --global user.name "schlauerbot"'
     - rm -rf public
     - mkdir hugo && cd hugo
     - wget -O  hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz
     - tar -xzf hugo.tar.gz
+    - chmod +x hugo
     - mv hugo /usr/bin && cd ..
     - rm -rf hugo
   script:
