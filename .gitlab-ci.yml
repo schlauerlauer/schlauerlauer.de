@@ -9,7 +9,7 @@ update-website:
   image: "alpine:3.9.3"
   before_script:
   # $GIT_SSH_PRIV_KEY: base64 encoded one-liner
-    - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git && apk add libc6-compat)'
+    - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git && apk add libc6-compat && apk add libstdc++)'
     - eval $(ssh-agent -s)
     - echo $GIT_SSH_PRIV_KEY > tmp.secret
     - base64 -d tmp.secret > tmp.key
@@ -23,7 +23,7 @@ update-website:
     - 'git config --global user.name "$GIT_USER"'
     - rm -rf public
     - mkdir hugo && cd hugo
-    - wget -O hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_0.55.6_Linux-64bit.tar.gz
+    - wget -O hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz
     - tar -xzf hugo.tar.gz
     - mv hugo /usr/bin && cd ..
     - rm -rf hugo
