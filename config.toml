@@ -1,3 +1,59 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "schlauerlauer"
+theme = "hallo"
+defaultContentLanguage = "en"
+disableHugoGeneratorInject = true
+
+[Author]
+  name = "Janek Lauer"
+
+[params]
+  greeting = "Hello!"
+
+
+  [[params.links]]
+    icon = "gitlab"
+    title = "GitLab"
+    url = "https://gitlab.com/schlauerlauer"
+
+  [[params.links]]
+    iconset = "fas"
+    icon = "envelope"
+    title = "E-mail"
+    url = "mailto:web@schlauerlauer.de"
+
+#  [[params.links]]
+#    icon = "instagram"
+#    title = "Instagram"
+#    url = "https://instagram.com/janek_lauer"
+
+#  [[params.links]]
+#    icon = "github"
+#    title = "Github"
+#    url = "https://github.com/gobbox"
+
+#  [[params.links]]
+#    icon = "facebook"
+#    title = "Facebook"
+#    url = "https://facebook.com/janek.lauer"
+  
+[params.colors]
+  background = "#A9CF54"
+  foreground = "#EDF7F2"
+  hover = "#000000"
+
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+  [privacy.instagram]
+    disable = true
+    simple = true
+  [privacy.twitter]
+    disable = true
+  [privacy.vimeo]
+    disable = true
+  [privacy.youtube]
+    disable = true
