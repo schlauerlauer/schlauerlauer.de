@@ -9,17 +9,20 @@ update-website:
   allow_failure: false
   image: "alpine:3.9.4"
   before_script:
-  # $GIT_SSH_PRIV_KEY: base64 encoded one-liner
+    # install dependencies
     - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git libc6-compat libstdc++)'
     - eval $(ssh-agent -s)
+    # install gitlab deploy key
     - echo $GIT_SSH_PRIV_KEY | base64 -d > tmp.key
     - chmod 400 tmp.key
     - ssh-add tmp.key
     - rm tmp.key
+    # add gitlab ssh keys to known_hosts
     - mkdir -p ~/.ssh
-    - ssh-keyscan gitlab.com >> gitlab-known-hosts
-    - cat gitlab-known-hosts >> ~/.ssh/known_hosts
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    # setup git
     - 'git config --global user.email "$GIT_EMAIL" && git config --global user.name "$GIT_USER"'
+    # prepare hugo
     - rm -rf public
     - mkdir hugo && cd hugo
     - wget -O hugo.tar.gz $HUGO_LINK
@@ -27,8 +30,10 @@ update-website:
     - mv hugo /usr/bin && cd ..
     - rm -rf hugo
   script:
+    # build hugo site
     - hugo
     - mv public ../
+    # push rendered public folder to public branch
     - git remote set-url origin git@gitlab.com:schlauerlauer/website.git
     - git stash && git stash drop
     - git checkout public
