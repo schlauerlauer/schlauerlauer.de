@@ -1,5 +1,4 @@
 # Schlauerlauer
-
 stages:
   - hugo-build
 update-website:
@@ -34,7 +33,7 @@ update-website:
     - hugo
     - mv public ../
     # push rendered public folder to public branch
-    - git remote set-url origin git@gitlab.com:schlauerlauer/website.git
+    - git remote set-url origin $GIT_ORIGIN
     - git stash && git stash drop
     - git checkout public
     - rm -rf public
