@@ -2,7 +2,6 @@
 
 stages:
   - hugo-build
-
 update-website:
   stage: hugo-build
   only:
