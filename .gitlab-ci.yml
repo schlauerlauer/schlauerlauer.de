@@ -1,0 +1,40 @@
+stages:
+  - hugo-build
+
+update-website:
+  stage: hugo-build
+  only:
+    - master
+  allow_failure: false
+  image: "alpine:3.9.3"
+  before_script:
+  # $GIT_SSH_PRIV_KEY: base64 encoded one-liner
+    - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git)'
+    - eval $(ssh-agent -s)
+    - echo $GIT_SSH_PRIV_KEY > tmp.secret
+    - base64 -d tmp.secret > tmp.key
+    - chmod 400 tmp.key
+    - ssh-add tmp.key
+    - rm -f tmp.key tmp.secret
+    - mkdir -p ~/.ssh
+    - ssh-keyscan gitlab.com >> gitlab-known-hosts
+    - cat gitlab-known-hosts >> ~/.ssh/known_hosts
+    - 'git config --global user.email "cicd@maxkolbe.de"'
+    - 'git config --global user.name "RoboScout"'
+    #- git submodule update --recursive --remote # TODO Remove me
+    - rm -rf public
+    - mkdir hugo && cd hugo
+    - wget -O  hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz
+    - tar -xzf hugo.tar.gz
+    - mv hugo /usr/bin && cd ..
+    - rm -rf hugo
+  script:
+    - hugo
+    - mv public ../
+    - git remote set-url origin git@gitlab.com:schlauerlauer/website.git
+    - git checkout public
+    - rm -rf public
+    - mv ../public .
+    - git add -A
+    - git commit -m "schlauerbot $(date +%d.%m.%y)"
+    - git push
