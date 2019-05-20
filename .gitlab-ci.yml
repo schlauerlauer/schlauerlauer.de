@@ -1,3 +1,5 @@
+# Schlauerlauer
+
 stages:
   - hugo-build
 
@@ -9,7 +11,7 @@ update-website:
   image: "alpine:3.9.3"
   before_script:
   # $GIT_SSH_PRIV_KEY: base64 encoded one-liner
-    - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git && apk add libc6-compat && apk add libstdc++)'
+    - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git libc6-compat libstdc++)'
     - eval $(ssh-agent -s)
     - echo $GIT_SSH_PRIV_KEY > tmp.secret
     - base64 -d tmp.secret > tmp.key
@@ -19,8 +21,7 @@ update-website:
     - mkdir -p ~/.ssh
     - ssh-keyscan gitlab.com >> gitlab-known-hosts
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
-    - 'git config --global user.email "$GIT_EMAIL"'
-    - 'git config --global user.name "$GIT_USER"'
+    - 'git config --global user.email "$GIT_EMAIL" && git config --global user.name "$GIT_USER"'
     - rm -rf public
     - mkdir hugo && cd hugo
     - wget -O hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz
@@ -31,6 +32,7 @@ update-website:
     - hugo
     - mv public ../
     - git remote set-url origin git@gitlab.com:schlauerlauer/website.git
+    - git stash && git stash drop
     - git checkout public
     - rm -rf public
     - mv ../public .
