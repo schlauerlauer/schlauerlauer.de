@@ -27,7 +27,7 @@ update-website:
     - tar -xzf hugo.tar.gz
     #- mv hugo /bin
     #- rm -rf hugo
-     - cd ..
+    - cd ..
   script:
     - ./hugo/hugo
     - mv public ../
