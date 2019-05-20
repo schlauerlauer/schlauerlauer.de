@@ -25,10 +25,10 @@ update-website:
     - mkdir hugo && cd hugo
     - wget -O  hugo.tar.gz $HUGO_LINK
     - tar -xzf hugo.tar.gz
-    - mv hugo /bin && cd ..
-    - rm -rf hugo
+    #- mv hugo /bin && cd ..
+    #- rm -rf hugo
   script:
-    - hugo
+    - ./hugo/hugo
     - mv public ../
     - git remote set-url origin git@gitlab.com:schlauerlauer/website.git
     - git checkout public
