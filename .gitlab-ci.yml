@@ -34,8 +34,7 @@ update-website:
     - mv public ../
     # push rendered public folder to public branch
     - git remote set-url origin $GIT_ORIGIN
-    - git stash && git stash drop
-    - git checkout public
+    - (git stash && git stash drop && git checkout public) || git checkout public
     - rm -rf public
     - mv ../public .
     - git add -A
