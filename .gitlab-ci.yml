@@ -8,7 +8,7 @@ update-website:
   only:
     - master
   allow_failure: false
-  image: "alpine:3.9.3"
+  image: "alpine:3.9.4"
   before_script:
   # $GIT_SSH_PRIV_KEY: base64 encoded one-liner
     - 'which ssh-agent || (apk update && apk --no-cache add openssh-client git libc6-compat libstdc++)'
