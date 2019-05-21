@@ -38,5 +38,5 @@ update-website:
     - rm -rf public
     - mv ../public .
     - git add -A
-    - git commit -m "$GIT_USER"
+    - (git commit -m "$GIT_USER") || echo "no changes made"
     - git push
