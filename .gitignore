@@ -1,1 +1,6 @@
-gitlab-known-hosts
+/*
+
+!public/
+!.gitignore
+!.git
+!README.md
