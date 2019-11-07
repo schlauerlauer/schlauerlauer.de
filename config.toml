@@ -23,11 +23,6 @@ disableHugoGeneratorInject = true
     title = "E-mail"
     url = "mailto:web@schlauerlauer.de"
 
-  [[params.links]]
-    icon = "instagram"
-    title = "Instagram"
-    url = "https://instagram.com/janek_lauer"
-
 #  [[params.links]]
 #    icon = "github"
 #    title = "Github"
