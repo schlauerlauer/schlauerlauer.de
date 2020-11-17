@@ -28,11 +28,10 @@ disableHugoGeneratorInject = true
     title = "Instagram"
     url = "https://instagram.com/janek_lauer"
 
-
-#  [[params.links]]
-#    icon = "github"
-#    title = "Github"
-#    url = "https://github.com/gobbox"
+  [[params.links]]
+    icon = "github"
+    title = "Github"
+    url = "https://github.com/schlauerlauer"
   
 [params.colors]
   background = "#A9CF54"
