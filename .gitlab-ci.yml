@@ -4,7 +4,7 @@ stages:
 update-website:
   stage: hugo-build
   only:
-    - master
+    - main
   allow_failure: false
   image: "alpine:3.9.4"
   before_script:
